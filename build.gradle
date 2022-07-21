@@ -6,8 +6,8 @@ plugins {
 
 }
 
-group 'io.jenkins.plugins'
-version '1.0.0-SNAPSHOT'
+group = 'io.jenkins.plugins'
+version = '1.0.0-SNAPSHOT'
 
 description = 'Notifier plugin in vk conversation'
 
