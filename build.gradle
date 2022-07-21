@@ -6,8 +6,9 @@ plugins {
 
 }
 
-group 'ru.spliterash'
+group 'io.jenkins.plugins'
 version '1.0.0-SNAPSHOT'
+
 description = 'Notifier plugin in vk conversation'
 
 repositories {
