@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id "io.spring.dependency-management" version "1.0.12.RELEASE"
+    id 'org.jenkins-ci.jpi' version '0.44.0-rc.5'
+    id "io.freefair.lombok" version "6.5.0.3"
+
+}
+
+group 'ru.spliterash'
+version '1.0.0-SNAPSHOT'
+description = 'Notifier plugin in vk conversation'
+
+repositories {
+    mavenCentral()
+    maven {
+        url = "https://repo.jenkins-ci.org/releases/"
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'io.jenkins.tools.bom:bom-2.249.x:26'
+    }
+}
+
+dependencies {
+    implementation "org.jenkins-ci.plugins.workflow:workflow-step-api"
+    implementation "org.jenkins-ci.plugins:matrix-project"
+}
+
+jenkinsPlugin {
+    jenkinsVersion = '2.359'
+    shortName = 'vk-notifier'
+    displayName = 'VK Notifier'
+    gitHubUrl = 'https://github.com/Spliterash/JenkinsVkNotifier'
+
+    developers {
+        developer {
+            id 'spliterash'
+            name 'Spliterash'
+            email 'me@spliterash.ru'
+        }
+    }
+    licenses {
+        license {
+            name 'MIT License'
+            url 'https://www.opensource.org/licenses/mit-license.php'
+            distribution 'repo'
+        }
+    }
+}

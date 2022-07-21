@@ -1,0 +1,19 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+    <f:section title="Настройки уведомлений VK">
+        <f:entry title="API ключ" field="apiKey">
+            <f:textbox/>
+        </f:entry>
+        <f:entry title="Стандартный диалог"
+                 description="Если нужно отправлять в личку, пиши свой ID, если в беседу то (2000000000 + номер беседы)"
+                 field="defaultPeerId">
+            <f:textbox/>
+        </f:entry>
+        <f:entry title="Стандартное сообщение о начале сборки" field="defaultStartMessage">
+            <f:textarea/>
+        </f:entry>
+        <f:entry title="Стандартное сообщение об окончании сборки" field="defaultEndMessage">
+            <f:textarea/>
+        </f:entry>
+    </f:section>
+</j:jelly>

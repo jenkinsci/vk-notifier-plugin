@@ -1,0 +1,13 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+    <f:entry field="peerId" title="ID Беседы"
+             description="Укажите куда отправлять уведомления для этой сборки, оставьте пустым чтобы использовать по умолчанию">
+        <f:textbox/>
+    </f:entry>
+    <f:entry field="startMessage" title="Начало сборки" description="Сообщение о начале сборки">
+        <f:textarea/>
+    </f:entry>
+    <f:entry field="endMessage" title="Конец сборки" description="Сообщение об окончании сборки">
+        <f:textarea/>
+    </f:entry>
+</j:jelly>
