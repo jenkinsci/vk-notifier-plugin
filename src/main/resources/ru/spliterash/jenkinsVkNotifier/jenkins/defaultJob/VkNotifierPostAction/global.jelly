@@ -1,8 +1,8 @@
 <?jelly escape-by-default='true'?>
-<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form" xmlns:c="/lib/credentials">
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
     <f:section title="Настройки уведомлений VK">
-        <f:entry title="API ключ" field="apiKeyCredentialId">
-            <c:select/>
+        <f:entry title="API ключ" field="apiKey">
+            <f:password/>
         </f:entry>
         <f:entry title="Стандартный диалог"
                  description="Если нужно отправлять в личку, пиши свой ID, если в беседу то (2000000000 + номер беседы)"

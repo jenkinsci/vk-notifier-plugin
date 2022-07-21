@@ -1,23 +1,14 @@
 package ru.spliterash.jenkinsVkNotifier;
 
-import com.cloudbees.plugins.credentials.CredentialsMatcher;
-import com.cloudbees.plugins.credentials.CredentialsMatchers;
-import com.cloudbees.plugins.credentials.CredentialsProvider;
 import hudson.EnvVars;
 import hudson.model.BuildListener;
 import hudson.model.Result;
 import hudson.model.Run;
-import hudson.security.ACL;
-import jenkins.model.Jenkins;
 import lombok.SneakyThrows;
-import org.jenkinsci.plugins.plaincredentials.StringCredentials;
 import ru.spliterash.jenkinsVkNotifier.jenkins.defaultJob.VkNotifierPostAction;
 import ru.spliterash.jenkinsVkNotifier.port.VkSender;
 import ru.spliterash.jenkinsVkNotifier.port.simple.SimpleVkSenderFactory;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,15 +21,7 @@ public class VkNotifierSender {
 
     @SneakyThrows
     public VkNotifierSender(VkNotifierPostAction.VkNotifierDescriptor descriptor, Run<?, ?> build, BuildListener listener) {
-        List<StringCredentials> list = CredentialsProvider.lookupCredentials(StringCredentials.class, Jenkins.get(), ACL.SYSTEM, Collections.emptyList());
-
-        CredentialsMatcher matcher = CredentialsMatchers.withId(descriptor.getApiKeyCredentialId());
-        StringCredentials cred = CredentialsMatchers.firstOrNull(list, matcher);
-
-        if (cred == null)
-            throw new NoSuchElementException("Cant find credential with id " + descriptor.getApiKeyCredentialId());
-
-        this.vkSender = new SimpleVkSenderFactory().create(cred.getSecret().getPlainText());
+        this.vkSender = new SimpleVkSenderFactory().create(descriptor.getApiKey().getPlainText());
         this.descriptor = descriptor;
         this.build = build;
         this.env = build.getEnvironment(listener);
