@@ -26,6 +26,7 @@ dependencyManagement {
 
 dependencies {
     implementation "org.jenkins-ci.plugins.workflow:workflow-step-api"
+    implementation 'org.jenkins-ci.plugins:git'
 }
 
 jenkinsPlugin {

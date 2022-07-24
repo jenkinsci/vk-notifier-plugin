@@ -80,7 +80,9 @@ public class VkNotifierPostAction extends Notifier {
                 defaultStartMessage = "Build %JOB_BASE_NAME% with number %BUILD_NUMBER% started";
 
             if (defaultEndMessage == null || defaultEndMessage.isEmpty())
-                defaultEndMessage = "Build %JOB_BASE_NAME% with number %BUILD_NUMBER% complete, status: %JOB_STATUS%";
+                defaultEndMessage = "Build %JOB_BASE_NAME% with number %BUILD_NUMBER% complete, status: %JOB_STATUS%\n" +
+                        "Changes:\n" +
+                        "%JOB_CHANGES%";
         }
 
         @Override
