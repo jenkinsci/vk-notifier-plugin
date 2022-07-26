@@ -11,12 +11,12 @@
 
 ### Глобальная конфигурация
 
-![Глобальная конфигурация](https://raw.githubusercontent.com/Spliterash/jenkins-vk-notifier/master/.github/images/global_configuration.png)
+![Глобальная конфигурация](https://raw.githubusercontent.com//jenkinsci/vk-notifier-plugin/master/.github/images/global_configuration.png)
 
 ### Конфигурация для отдельного билда
 
-![Конфигурация билда](https://raw.githubusercontent.com/Spliterash/jenkins-vk-notifier/master/.github/images/job_configuration.png)
-
+![Конфигурация билда](https://raw.githubusercontent.com/jenkinsci/vk-notifier-plugin/master/.github/images/job_configuration.png)
+https://github.com/jenkinsci/vk-notifier-plugin
 ## Pipeline
 
 Так же можно отправить сообщение посредством pipeline

@@ -33,7 +33,8 @@ jenkinsPlugin {
     jenkinsVersion = '2.359'
     shortName = 'vk-notifier'
     displayName = 'VK Notifier'
-    gitHubUrl = 'https://github.com/Spliterash/JenkinsVkNotifier'
+    gitHubUrl = 'https://github.com/jenkinsci/vk-notifier-plugin'
+    url = 'https://github.com/jenkinsci/vk-notifier-plugin'
 
     developers {
         developer {
