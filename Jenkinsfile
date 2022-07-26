@@ -1,3 +1,3 @@
 buildPluginWithGradle(
-    jdkVersions: [11]
+    jdkVersions: [11], platforms: ['linux']
 )
