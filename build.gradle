@@ -1,13 +1,12 @@
 plugins {
     id 'java'
-    id "io.spring.dependency-management" version "1.0.12.RELEASE"
     id 'org.jenkins-ci.jpi' version '0.44.0-rc.5'
     id "io.freefair.lombok" version "6.5.0.3"
 
 }
 
 group = 'io.jenkins.plugins'
-version = '1.0.0-SNAPSHOT'
+version = '1.0.0'
 
 description = 'Notifier plugin in vk conversation'
 
@@ -27,15 +26,9 @@ repositories {
     }
 }
 
-dependencyManagement {
-    imports {
-        mavenBom 'io.jenkins.tools.bom:bom-2.249.x:26'
-    }
-}
-
 dependencies {
-    implementation "org.jenkins-ci.plugins.workflow:workflow-step-api"
-    implementation 'org.jenkins-ci.plugins:git'
+    implementation 'org.jenkins-ci.plugins.workflow:workflow-step-api:2.10'
+    implementation 'org.jenkins-ci.plugins:git:4.10.0'
 }
 
 jenkinsPlugin {
