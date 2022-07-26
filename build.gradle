@@ -11,6 +11,15 @@ version = '1.0.0-SNAPSHOT'
 
 description = 'Notifier plugin in vk conversation'
 
+compileJava.options.encoding = 'UTF-8'
+
+compileJava {
+    options.encoding = "UTF-8"
+}
+javadoc {
+    options.encoding = 'UTF-8'
+}
+
 repositories {
     mavenCentral()
     maven {
