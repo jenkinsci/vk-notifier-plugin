@@ -1,1 +1,4 @@
-buildPlugin(jdkVersions: [11])
+buildPluginWithGradle(
+    jdkVersions: [11],
+    tests: [skip: true]
+)
