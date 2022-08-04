@@ -1,39 +1,28 @@
 package ru.spliterash.jenkinsVkNotifier.port.simple;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
 import ru.spliterash.jenkinsVkNotifier.port.VkSender;
 import ru.spliterash.jenkinsVkNotifier.port.exception.VkException;
 
 import java.io.IOException;
-import java.net.CookieHandler;
-import java.net.URI;
-import java.net.URLEncoder;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 @RequiredArgsConstructor
 public class SimpleVkSenderClient implements VkSender {
     private static final Random RANDOM = new Random();
-    private static final HttpClient CLIENT = HttpClient.newBuilder()
-            .cookieHandler(new CookieHandler() {
-                @Override
-                public Map<String, List<String>> get(URI uri, Map<String, List<String>> requestHeaders) throws IOException {
-                    return Collections.emptyMap();
-                }
-
-                @Override
-                public void put(URI uri, Map<String, List<String>> responseHeaders) throws IOException {
-
-                }
-            })
-            .followRedirects(HttpClient.Redirect.NORMAL)
-            .connectTimeout(Duration.of(30, ChronoUnit.SECONDS))
+    private static final CloseableHttpClient client = HttpClients.custom()
+            .disableCookieManagement()
             .build();
 
     private final String token;
@@ -41,36 +30,30 @@ public class SimpleVkSenderClient implements VkSender {
 
     @Override
     public void sendMessage(String peerId, String txt) {
-        Map<String, String> parameters = new HashMap<>();
+        List<NameValuePair> data = Arrays.asList(
+                new BasicNameValuePair("access_token", token),
+                new BasicNameValuePair("v", "5.131"),
 
-        parameters.put("access_token", token);
-        parameters.put("v", "5.131");
+                new BasicNameValuePair("peer_id", peerId),
+                new BasicNameValuePair("message", txt),
+                new BasicNameValuePair("random_id", String.valueOf(RANDOM.nextLong()))
+        );
 
-        parameters.put("peer_id", peerId);
-        parameters.put("message", txt);
-        parameters.put("random_id", String.valueOf(RANDOM.nextLong()));
-
-        String form = parameters.entrySet()
-                .stream()
-                .map(e -> e.getKey() + "=" + URLEncoder.encode(e.getValue(), StandardCharsets.UTF_8))
-                .collect(Collectors.joining("&"));
 
         try {
-            HttpResponse<String> result = CLIENT.send(
-                    HttpRequest.newBuilder()
-                            .uri(URI.create("https://api.vk.com/method/messages.send"))
-                            .POST(HttpRequest.BodyPublishers.ofString(form))
-                            .build(), HttpResponse.BodyHandlers.ofString()
-            );
+            HttpPost post = new HttpPost("https://api.vk.com/method/messages.send");
+            post.setEntity(new UrlEncodedFormEntity(data));
 
-            String body = result.body();
+            HttpEntity response = client.execute(post).getEntity();
+
+            String body = IOUtils.toString(response.getContent(), StandardCharsets.UTF_8);
             if (body == null)
                 throw new VkException("Response null");
 
             if (body.contains("\"error_code\":"))
                 throw new VkException("Response have error: " + body);
 
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

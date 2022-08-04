@@ -87,7 +87,7 @@ public class VkNotifierPostAction extends Notifier {
 
         @Override
         public String getDisplayName() {
-            return "VK Parameters";
+            return "VK Notify";
         }
 
         @Override

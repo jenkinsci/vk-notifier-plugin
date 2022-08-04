@@ -108,19 +108,13 @@ public class VkNotifierSender {
     }
 
     private String getAuthorName(ChangeLogSet.Entry change) {
-        try {
-            Class.forName("hudson.plugins.git.GitChangeSet");
+        if (change instanceof GitChangeSet) {
+            GitChangeSet gitChange = (GitChangeSet) change;
 
-            if (change instanceof GitChangeSet) {
-                GitChangeSet gitChange = (GitChangeSet) change;
-
-                return gitChange.getAuthorName();
-            }
-        } catch (ClassNotFoundException e) {
-            // Ignore
+            return gitChange.getAuthorName();
         }
-        return change.getAuthor().getFullName();
 
+        return change.getAuthor().getFullName();
     }
 
     public void send(String peer, String message) {

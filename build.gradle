@@ -6,11 +6,12 @@ plugins {
 }
 
 group = 'io.jenkins.plugins'
-version = '1.0.0'
+version = '1.0.1'
 
 description = 'Notifier plugin in vk conversation'
 
-compileJava.options.encoding = 'UTF-8'
+sourceCompatibility = JavaVersion.VERSION_1_8;
+targetCompatibility = JavaVersion.VERSION_1_8;
 
 compileJava {
     options.encoding = "UTF-8"
@@ -27,12 +28,14 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.jenkins-ci.plugins.workflow:workflow-step-api:2.10'
-    implementation 'org.jenkins-ci.plugins:git:4.10.0'
+    implementation(platform("io.jenkins.tools.bom:bom-2.289.x:+"))
+
+    implementation 'org.jenkins-ci.plugins.workflow:workflow-step-api'
+    implementation 'org.jenkins-ci.plugins:git'
 }
 
 jenkinsPlugin {
-    jenkinsVersion = '2.359'
+    jenkinsVersion = '2.289.3'
     shortName = 'vk-notifier'
     displayName = 'VK Notifier'
     gitHubUrl = 'https://github.com/jenkinsci/vk-notifier-plugin'
