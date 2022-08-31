@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'io.jenkins.plugins'
-version = '1.0.1'
+version = '1.0.2'
 
 description = 'Notifier plugin in vk conversation'
 

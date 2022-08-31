@@ -42,7 +42,7 @@ public class SimpleVkSenderClient implements VkSender {
 
         try {
             HttpPost post = new HttpPost("https://api.vk.com/method/messages.send");
-            post.setEntity(new UrlEncodedFormEntity(data));
+            post.setEntity(new UrlEncodedFormEntity(data, StandardCharsets.UTF_8));
 
             HttpEntity response = client.execute(post).getEntity();
 
